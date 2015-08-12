@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Homebrew additions</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="additions.js"></script>
+  <script src="styles.js"></script>
+</head>
+<body>
+
+<script>
+$( document ).ready(function(){
+additionCount = additionCount();
+styleCount = styleCount();
+comboCount = additionCount * styleCount;
+$('#additionCount').text(additionCount);
+$('#styleCount').text(styleCount);
+$('#comboCount').text(comboCount);
+
+$.ajax({
+    url: 'info.php',
+    data: { type: "combo_count" }
+  }).done(function(msg) {
+    $('#comboVoteCount').html(msg);
+    console.log(msg);
+  });
+$.ajax({
+    url: 'info.php',
+    data: { type: "vote_count" }
+  }).done(function(msg) {
+    $('#voteCount').text(msg);
+    console.log(msg);
+  });
+
+});
+
+</script>
+
+<!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Homebrew additions</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="index.html">Vote</a></li>
+            <li><a href="stats.html">Best and worst</a></li>
+            <li class="active"><a href="info.html">Info</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+<div class="container">
+  <h1 id="output">Info about this</h1>
+  <p>Number of additions: <span id="additionCount">0</span></p>
+  <p>Number of styles: <span id="styleCount">0</span> - Pulled from 2008 BJCP Style guidelines</p>
+  <p>Possible combinations: <span id="comboCount">0</span></p>
+  
+  <p>Combinations voted on: <span id="comboVoteCount">0</span></p>
+  <p>Total votes: <span id="voteCount">0</span></p>
+  
+</div>
+
+
+</body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-66223226-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</html>
