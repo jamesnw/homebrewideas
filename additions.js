@@ -32,14 +32,17 @@ additions = {
     "juniper berries",
     "ginger",
     "hibiscus",
+    "cinnamon",
   ],
   "other": [
     "chocolate",
     "peanut butter",
     "coconut",
     "hazelnut",
-    "pecan"
-    
+    "pecan",
+    "bacon",
+    "bourbon",
+    "whiskey",
   ]
 
 };

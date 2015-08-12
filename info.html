@@ -26,14 +26,12 @@ $.ajax({
     data: { type: "combo_count" }
   }).done(function(msg) {
     $('#comboVoteCount').html(msg);
-    console.log(msg);
   });
 $.ajax({
     url: 'info.php',
     data: { type: "vote_count" }
   }).done(function(msg) {
     $('#voteCount').text(msg);
-    console.log(msg);
   });
 
 });
@@ -44,9 +42,9 @@ $.ajax({
     <nav class="navbar navbar-inverse">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Homebrew additions</a>
+          <a class="navbar-brand" href="#">Homebrew addition ideas</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="">
           <ul class="nav navbar-nav">
             <li><a href="index.html">Vote</a></li>
             <li><a href="stats.html">Best and worst</a></li>

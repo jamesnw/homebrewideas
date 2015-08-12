@@ -7,15 +7,43 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.js"></script>
   <script src="additions.js"></script>
   <script src="styles.js"></script>
 </head>
-<body>
 
 <script>
 $( document ).ready(function(){
-
- 
+ columns = [{
+        field: 'style',
+        title: 'Style',
+      },{
+        field: 'addition',
+        title: 'Addition',
+      },{
+      field: 'gross_votes',
+        title: 'Gross votes',
+      },{
+      field: 'good_votes',
+        title: 'Good votes',
+      }, ];
+      
+  $('#best-table').bootstrapTable({
+    url: 'stats.php',
+    queryParams: function(params){
+      params['type'] = "best";
+      return params;
+    },
+    columns: columns,
+  });
+  $('#worst-table').bootstrapTable({
+    url: 'stats.php',
+    queryParams: function(params){
+      params['type'] = "worst";
+      return params;
+    },
+    columns: columns,
+  });
 });
 
 </script>
@@ -24,9 +52,9 @@ $( document ).ready(function(){
     <nav class="navbar navbar-inverse">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Homebrew additions</a>
+          <a class="navbar-brand" href="#">Homebrew addition ideas</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="">
           <ul class="nav navbar-nav">
             <li><a href="index.html">Vote</a></li>
             <li class="active"><a href="stats.html">Best and worst</a></li>
@@ -39,6 +67,12 @@ $( document ).ready(function(){
 <div class="container">
   <h1 id="output">Coming soon</h1>
   <p>We need more info... so go and vote!</p>
+  <h2>Top combos</h2>
+  <table id="best-table" data-show-columns="true"></table>
+  <div class="clearfix"></div>
+  <h2>Worst combos</h2>
+  <table id="worst-table" data-show-columns="true"></table>
+
 </div>
 
 

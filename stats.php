@@ -8,41 +8,43 @@ if(isset($_GET['type'])){
 }
 
 switch ($type){
-  case 'vote_count':
-    vote_count();
+  case 'best':
+    best();
     break;
-  case 'combo_count':
-    combo_count();
+  case 'worst':
+    worst();
     break;
   default:
     return "error";
     break;
 }
 
-function vote_count(){
+function best(){
   $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
   // Check connection
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
-  $sql = "SELECT (SUM(`gross_votes`) + SUM(`good_votes`)) from homebrewideas";
+  $sql = "SELECT `style`, `addition`, `gross_votes`,`good_votes` from homebrewideas ORDER BY `good_votes` DESC LIMIT 0,10";
   $result = $conn->query($sql);
-   while($r = mysqli_fetch_assoc($result)) {
-		print_r(array_values($r)[0]); 
+  $rows = array();
+	while($r = mysqli_fetch_assoc($result)) {
+			$rows[] = $r;
 	}
-	$conn->close();
+	print json_encode($rows);
 }
 
-function combo_count(){
+function worst(){
   $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
   // Check connection
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
-  $sql = "SELECT COUNT(*) from homebrewideas";
+  $sql = "SELECT `style`, `addition`, `gross_votes`,`good_votes` from homebrewideas ORDER BY `gross_votes` DESC LIMIT 0,10";
   $result = $conn->query($sql);
-  while($r = mysqli_fetch_assoc($result)) {
-		print_r(array_values($r)[0]); 
+  $rows = array();
+	while($r = mysqli_fetch_assoc($result)) {
+			$rows[] = $r;
 	}
-	$conn->close();
+	print json_encode($rows);
 }

@@ -20,9 +20,11 @@ $( document ).ready(function(){
  });
  $("#vote-gross").click(function(){
   vote("gross");
+  ga('send', 'event', 'button', 'vote', 'gross', 1);
  });
   $("#vote-good").click(function(){
   vote("good");
+  ga('send', 'event', 'button', 'vote', 'good', 1);
  });
  
 });
@@ -47,9 +49,9 @@ function vote(vote){
     <nav class="navbar navbar-inverse">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Homebrew additions</a>
+          <a class="navbar-brand" href="#">Homebrew addition ideas</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar" class="">
           <ul class="nav navbar-nav">
             <li class="active"><a href="index.html">Vote</a></li>
             <li><a href="stats.html">Best and worst</a></li>
@@ -61,10 +63,10 @@ function vote(vote){
 
 <div class="container">
   <h1 id="output">My First Bootstrap Page</h1>
-  <button class="btn btn-primary vote" type="button" id="vote-gross">
+  <button class="btn btn-danger vote" type="button" id="vote-gross">
     Sounds gross
   </button>
-  <button class="btn btn-primary vote" type="button" id="vote-good">
+  <button class="btn btn-success vote" type="button" id="vote-good">
     Sounds good
   </button>
   <button class="btn btn-primary vote" type="button">
