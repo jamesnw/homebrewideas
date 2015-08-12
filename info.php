@@ -28,7 +28,8 @@ function vote_count(){
   $sql = "SELECT (SUM(`gross_votes`) + SUM(`good_votes`)) from homebrewideas";
   $result = $conn->query($sql);
    while($r = mysqli_fetch_assoc($result)) {
-		print_r(array_values($r)[0]); 
+    $av = array_values($r);
+		print_r($av[0]); 
 	}
 	$conn->close();
 }
@@ -42,7 +43,8 @@ function combo_count(){
   $sql = "SELECT COUNT(*) from homebrewideas";
   $result = $conn->query($sql);
   while($r = mysqli_fetch_assoc($result)) {
-		print_r(array_values($r)[0]); 
+		 $av = array_values($r);
+		print_r($av[0]);  
 	}
 	$conn->close();
 }
