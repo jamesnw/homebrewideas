@@ -33,6 +33,10 @@ additions = {
     "ginger",
     "hibiscus",
     "cinnamon",
+    'peppercorn',
+    'lemon pepper',
+    'cucumber',
+    'rhubarb',
   ],
   "other": [
     "chocolate",
@@ -44,6 +48,7 @@ additions = {
     "bourbon",
     "whiskey",
     "coffee",
+    "piña colada",
   ]
 
 };
