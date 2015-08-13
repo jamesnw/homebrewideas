@@ -1,47 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Homebrew additions</title>
+  <title>Homebrew additions stats</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.js"></script>
   <script src="additions.js"></script>
   <script src="styles.js"></script>
 </head>
-<body>
 
+<body>
 <script>
 $( document ).ready(function(){
- newIdea();
- $(".vote").click(function(){
-  newIdea();
- });
- $("#vote-gross").click(function(){
-  vote("gross");
-  ga('send', 'event', 'button', 'vote', 'gross', 1);
- });
-  $("#vote-good").click(function(){
-  vote("good");
-  ga('send', 'event', 'button', 'vote', 'good', 1);
- });
- 
-});
+	$.each(beerStyles, function(key, value) {   
+     $('#beers')
+          .append($('<option>', { value : value })
+          .text(value)); 
+	});
+	$('#beers').change(function(){
+		loadStyle($('#beers').val());
+	});
 
-function newIdea(){
-  currentStyle = randomStyle();
-  currentAddition = randomAddition();
- $('#output').html(currentStyle + " with " + currentAddition);
-}
-function vote(vote){
-  $.ajax({
-    url: 'vote.php',
-    data: { style: currentStyle, addition: currentAddition, vote: vote }
-    
-  }).done(function(msg) {
   
+});
+function loadStyle(style){
+	$('#table').bootstrapTable('destroy');
+	if(beerStyles.indexOf(style) >= 0){
+		$('#table').bootstrapTable({
+    url: 'combos.php',
+    queryParams: function(params){
+      params['type'] = style;
+      return params;
+    },
+    columns: [{
+        field: 'style',
+        title: 'Style',
+      },{
+        field: 'addition',
+        title: 'Addition',
+      },{
+      field: 'gross_votes',
+        title: 'Gross votes',
+      },{
+      field: 'good_votes',
+        title: 'Good votes',
+      }, ],
   });
+	}
 }
 </script>
 
@@ -53,26 +61,22 @@ function vote(vote){
         </div>
         <div id="navbar" class="">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.html">Vote</a></li>
+            <li><a href="index.html">Vote</a></li>
             <li><a href="stats.html">Best and worst</a></li>
-            <li><a href="combos.html">By style</a></li>
+            <li class="active"><a href="combos.html">By style</a></li>
             <li><a href="info.html">Info</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
-<div class="container">
-  <h1 id="output">My First Bootstrap Page</h1>
-  <button class="btn btn-danger vote" type="button" id="vote-gross">
-    Sounds gross
-  </button>
-  <button class="btn btn-success vote" type="button" id="vote-good">
-    Sounds good
-  </button>
-  <button class="btn btn-primary vote" type="button">
-    Not sure
-  </button>
+    
+    <div class="container">
+  <h1>Best combos per style</h1>
+  <p>We need more info... so go and vote!</p>
+   <label for="beers">Choose a beer style:</label>
+  <select id="beers"></select>
+  <h2>Top combos</h2>
+  <table id="table" data-show-columns="true"></table>
 </div>
 
 
