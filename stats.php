@@ -25,7 +25,7 @@ function best(){
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
-  $sql = "SELECT `style`, `addition`, `gross_votes`,`good_votes` from homebrewideas ORDER BY `good_votes` DESC LIMIT 0,10";
+  $sql = "SELECT `style`, `addition`, (`good_votes` - `gross_votes`) AS karma from homebrewideas ORDER BY `karma` DESC LIMIT 0,10";
   $result = $conn->query($sql);
   $rows = array();
 	while($r = mysqli_fetch_assoc($result)) {
@@ -40,7 +40,7 @@ function worst(){
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
-  $sql = "SELECT `style`, `addition`, `gross_votes`,`good_votes` from homebrewideas ORDER BY `gross_votes` DESC LIMIT 0,10";
+  $sql = "SELECT `style`, `addition`, (`good_votes` - `gross_votes`) AS karma from homebrewideas ORDER BY `karma` ASC LIMIT 0,10";
   $result = $conn->query($sql);
   $rows = array();
 	while($r = mysqli_fetch_assoc($result)) {
