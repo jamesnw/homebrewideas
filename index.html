@@ -15,16 +15,19 @@
 <script>
 $( document ).ready(function(){
  newIdea();
- $(".vote").click(function(){
-  newIdea();
- });
  $("#vote-gross").click(function(){
   vote("gross");
+  newIdea();
   ga('send', 'event', 'button', 'vote', 'gross', 1);
  });
   $("#vote-good").click(function(){
   vote("good");
+  newIdea();
   ga('send', 'event', 'button', 'vote', 'good', 1);
+ });
+  $("#vote-no-idea").click(function(){
+  newIdea();
+  ga('send', 'event', 'button', 'vote', 'no idea', 1);
  });
  
 });
@@ -70,7 +73,7 @@ function vote(vote){
   <button class="btn btn-success vote" type="button" id="vote-good">
     Sounds good
   </button>
-  <button class="btn btn-primary vote" type="button">
+  <button class="btn btn-primary vote" type="button" id="vote-no-idea">
     Not sure
   </button>
 </div>
