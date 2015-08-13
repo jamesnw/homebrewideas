@@ -43,6 +43,7 @@ additions = {
     "bacon",
     "bourbon",
     "whiskey",
+    "coffee",
   ]
 
 };
