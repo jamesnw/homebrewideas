@@ -12,6 +12,7 @@ $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
   if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
   }
+  $type = $conn->real_escape_string($type);
   $sql = "SELECT `style`, `addition`, (`good_votes` - `gross_votes`) AS karma from homebrewideas WHERE `style` = '" . $type ."' ORDER BY `karma` DESC";
   $result = $conn->query($sql);
 

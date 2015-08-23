@@ -16,9 +16,10 @@
 <script>
 $( document ).ready(function(){
 	$.each(beerStyles, function(key, value) {   
+		var name = value.name;
      $('#beers')
-          .append($('<option>', { value : value })
-          .text(value)); 
+          .append($('<option>', { name : name })
+          .text(name)); 
 	});
 	$('#beers').change(function(){
 		loadStyle($('#beers').val());
@@ -28,7 +29,6 @@ $( document ).ready(function(){
 });
 function loadStyle(style){
 	$('#table').bootstrapTable('destroy');
-	if(beerStyles.indexOf(style) >= 0){
 		$('#table').bootstrapTable({
     url: 'combos.php',
     queryParams: function(params){
@@ -47,7 +47,7 @@ function loadStyle(style){
       },
        ],
   });
-	}
+	
 }
 </script>
 

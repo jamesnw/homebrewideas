@@ -14,19 +14,30 @@
 
 <script>
 $( document ).ready(function(){
+	total_votes = 0;
+	good_votes = 0;
+	gross_votes = 0;
  newIdea();
  $("#vote-gross").click(function(){
   vote("gross");
   newIdea();
+  gross_votes += 1;
+  total_votes += 1;
+  updateVotes();
   ga('send', 'event', 'button', 'vote', 'gross', 1);
  });
   $("#vote-good").click(function(){
   vote("good");
   newIdea();
+  good_votes += 1;
+  total_votes += 1;
+  updateVotes();
   ga('send', 'event', 'button', 'vote', 'good', 1);
  });
   $("#vote-no-idea").click(function(){
   newIdea();
+  total_votes += 1;
+  updateVotes();
   ga('send', 'event', 'button', 'vote', 'no idea', 1);
  });
  
@@ -35,16 +46,28 @@ $( document ).ready(function(){
 function newIdea(){
   currentStyle = randomStyle();
   currentAddition = randomAddition();
- $('#output').html(currentStyle + " with " + currentAddition);
+ $('#output').html("<a href='#' class='currentStyle'>"+currentStyle.name + "</a> with " + currentAddition);
+ $('#styleInfo').html(currentStyle.overall_impression).hide();
+ $(".currentStyle").click(function(e){
+ 	 e.preventDefault();
+ 	 $('#styleInfo').slideDown();
+ });
 }
 function vote(vote){
   $.ajax({
     url: 'vote.php',
-    data: { style: currentStyle, addition: currentAddition, vote: vote }
+    data: { style: currentStyle.name, addition: currentAddition, vote: vote }
     
   }).done(function(msg) {
   
   });
+}
+function updateVotes(){
+	$('#total_votes').html(total_votes);
+	$('#vote_analysis').html(per(good_votes/total_votes) + "% of combos looked good to you, and " + per(gross_votes/total_votes) + "% sounded gross");
+}
+function per(num){
+	return Math.round(num*100,2);
 }
 </script>
 
@@ -66,7 +89,8 @@ function vote(vote){
     </nav>
 
 <div class="container">
-  <h1 id="output">My First Bootstrap Page</h1>
+  <h1 id="output">Style loading...</h1>
+  <p id="styleInfo"> </p>
   <button class="btn btn-danger vote" type="button" id="vote-gross">
     Sounds gross
   </button>
@@ -76,6 +100,9 @@ function vote(vote){
   <button class="btn btn-primary vote" type="button" id="vote-no-idea">
     Not sure
   </button>
+  <br>
+  <h2>Your vote count: <span id="total_votes">0</span></h2>
+  <p id="vote_analysis"> </p>
 </div>
 
 
